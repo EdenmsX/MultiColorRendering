@@ -33,6 +33,8 @@ vertex VertexOut vertex_shader(const VertexIn vertexIn [[stage_in]]) {
     vertexOut.color = vertexIn.color;
     
     return vertexOut;
+    
+    //移动
 //    float4 position = float4(vertices[vertexId], 1);
 //    position.x += constants.animateBy;
 //    return position;
@@ -47,11 +49,11 @@ fragment half4 fragment_shader(VertexOut vertexIn[[stage_in]]){
 //    return half4(1,1,0,1);
     
     //返回彩色
-//    return half4(vertexIn.color);
+    return half4(vertexIn.color);
     
-    //返回黑白 - 产生灰度
-    float grayColor = (vertexIn.color.r + vertexIn.color.g + vertexIn.color.b) / 3;
-    return half4(grayColor, grayColor, grayColor, 1);
+//    //返回黑白 - 产生灰度
+//    float grayColor = (vertexIn.color.r + vertexIn.color.g + vertexIn.color.b) / 3;
+//    return half4(grayColor, grayColor, grayColor, 1);
 }
 
 

@@ -64,7 +64,7 @@ class Renderer: NSObject {
         super.init()
         
 //        buildModel()
-        buildPipelineState()
+//        buildPipelineState()
     }
     
 //    //处理顶点
@@ -75,7 +75,7 @@ class Renderer: NSObject {
 //        
 //        indexBuffer = device.makeBuffer(bytes: indces, length: indces.count * MemoryLayout<Float>.size, options: [])
 //    }
-    
+    /*
     //处理管道状态
     private func buildPipelineState(){
         //储存GPU中的事项
@@ -118,6 +118,7 @@ class Renderer: NSObject {
             print("error: \(error.localizedDescription)")
         }
     }
+ */
 }
 
 extension Renderer: MTKViewDelegate{
@@ -129,9 +130,9 @@ extension Renderer: MTKViewDelegate{
     //绘制图形(调用次数和帧数有关, 例如: 有60帧,那么没秒钟调用这个方法60次)
     func draw(in view: MTKView) {
         guard let drawable = view.currentDrawable,
-            let descriptor = view.currentRenderPassDescriptor,
 //        let indexBuffer = indexBuffer,
-            let pipelineState = pipelineState else { return  }
+//            let pipelineState = pipelineState
+        let descriptor = view.currentRenderPassDescriptor else { return  }
         
         //创建缓冲区 commandbuffer
         let commandbuffer = commandQueue.makeCommandBuffer()
@@ -145,8 +146,8 @@ extension Renderer: MTKViewDelegate{
         
         //把命令进行编码
         let commandEncode = commandbuffer?.makeRenderCommandEncoder(descriptor: descriptor)
-        //设置管道状态
-        commandEncode?.setRenderPipelineState(pipelineState)
+//        //设置管道状态
+//        commandEncode?.setRenderPipelineState(pipelineState)
         /**
          offset偏移量: 读取数组的起始位置,0就是从第一组数据(0,1,0)开始拿, 1就是从第二组数据开始(-1,-1,0)
          index: 顶点缓冲区的编号

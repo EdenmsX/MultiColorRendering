@@ -45,6 +45,32 @@ class Plane: Node {
     
     var time: Float = 0
     
+    //Renderable
+    var pipelineState: MTLRenderPipelineState!
+    var vertexFunctionName: String = "vertex_shader"
+    var fragmentFunctionName: String = "fragment_shader"
+    var vertexDescriptor: MTLVertexDescriptor = {
+        //创建顶点蓝图
+        //顶点的描述符  attributes最多有32个(0-31)
+        let vertexDescriptor = MTLVertexDescriptor()
+        //位置
+        vertexDescriptor.attributes[0].format = .float3
+        vertexDescriptor.attributes[0].offset = 0
+        vertexDescriptor.attributes[0].bufferIndex = 0
+        //颜色
+        vertexDescriptor.attributes[1].format = .float4
+        vertexDescriptor.attributes[1].offset = MemoryLayout<float3>.stride
+        vertexDescriptor.attributes[1].bufferIndex = 0
+        
+        //整合前面的命令
+        vertexDescriptor.layouts[0].stride = MemoryLayout<Vertex>.stride
+        //把顶点描述符传入
+//        pipelineDescriptor.vertexDescriptor = vertexDescriptor
+        
+        return vertexDescriptor
+    }()
+    
+    
     //处理顶点
     func buildBuffer(device: MTLDevice){
         //创建顶点缓冲区,保存了顶点数组中的顶点位置
@@ -57,6 +83,7 @@ class Plane: Node {
     init(device: MTLDevice) {
         super.init()
         buildBuffer(device: device)
+        pipelineState = buildPipelineState(device: device)
     }
     
     override func render(commandEncoder: MTLRenderCommandEncoder, detailTime: Float) {
@@ -68,10 +95,17 @@ class Plane: Node {
         let animateBy = abs(sin(time) / 2 + 0.5)
         constant.animateBy = animateBy
         
+        //设置管道状态
+        commandEncoder.setRenderPipelineState(pipelineState)
+        
         commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         commandEncoder.setVertexBytes(&constant, length: MemoryLayout<Constants>.stride, index: 1)
         commandEncoder.drawIndexedPrimitives(type: .triangle, indexCount: indces.count, indexType: .uint16, indexBuffer: indexBuffer, indexBufferOffset: 0)
     }
+}
+
+extension Plane: Renderable {
+    
 }
 
 
