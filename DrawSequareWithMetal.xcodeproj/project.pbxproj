@@ -14,12 +14,16 @@
 		373E1D2A1FC42580003F486F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 373E1D281FC42580003F486F /* LaunchScreen.storyboard */; };
 		373E1D331FC425E9003F486F /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373E1D311FC425E8003F486F /* Renderer.swift */; };
 		373E1D341FC425E9003F486F /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 373E1D321FC425E8003F486F /* Shader.metal */; };
+		377DC9BC1FC6A287006A5B77 /* Texturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377DC9BB1FC6A287006A5B77 /* Texturable.swift */; };
 		379765EC1FC50DF5001ABA72 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379765EB1FC50DF5001ABA72 /* Node.swift */; };
 		379765EE1FC50F5C001ABA72 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379765ED1FC50F5C001ABA72 /* Plane.swift */; };
 		379765F01FC51474001ABA72 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379765EF1FC51474001ABA72 /* Scene.swift */; };
 		379765F21FC51522001ABA72 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379765F11FC51522001ABA72 /* GameScene.swift */; };
 		379765F61FC52F56001ABA72 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379765F51FC52F56001ABA72 /* Types.swift */; };
 		379765FA1FC56F0E001ABA72 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379765F91FC56F0E001ABA72 /* Renderable.swift */; };
+		379765FF1FC57E71001ABA72 /* picture-frame-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 379765FC1FC57E71001ABA72 /* picture-frame-mask.png */; };
+		379766001FC57E71001ABA72 /* picture-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 379765FD1FC57E71001ABA72 /* picture-frame.png */; };
+		379766011FC57E71001ABA72 /* picture.png in Resources */ = {isa = PBXBuildFile; fileRef = 379765FE1FC57E71001ABA72 /* picture.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,12 +36,16 @@
 		373E1D2B1FC42580003F486F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		373E1D311FC425E8003F486F /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		373E1D321FC425E8003F486F /* Shader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
+		377DC9BB1FC6A287006A5B77 /* Texturable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texturable.swift; sourceTree = "<group>"; };
 		379765EB1FC50DF5001ABA72 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		379765ED1FC50F5C001ABA72 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		379765EF1FC51474001ABA72 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		379765F11FC51522001ABA72 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		379765F51FC52F56001ABA72 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		379765F91FC56F0E001ABA72 /* Renderable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
+		379765FC1FC57E71001ABA72 /* picture-frame-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picture-frame-mask.png"; sourceTree = "<group>"; };
+		379765FD1FC57E71001ABA72 /* picture-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picture-frame.png"; sourceTree = "<group>"; };
+		379765FE1FC57E71001ABA72 /* picture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +84,11 @@
 				379765F51FC52F56001ABA72 /* Types.swift */,
 				373E1D321FC425E8003F486F /* Shader.metal */,
 				379765F91FC56F0E001ABA72 /* Renderable.swift */,
+				377DC9BB1FC6A287006A5B77 /* Texturable.swift */,
 				379765F41FC515E3001ABA72 /* Node */,
 				379765F31FC515D4001ABA72 /* Scene */,
 				373E1D231FC42580003F486F /* Main.storyboard */,
+				379765FB1FC57E71001ABA72 /* Images */,
 				373E1D261FC42580003F486F /* Assets.xcassets */,
 				373E1D281FC42580003F486F /* LaunchScreen.storyboard */,
 				373E1D2B1FC42580003F486F /* Info.plist */,
@@ -102,6 +112,16 @@
 				379765ED1FC50F5C001ABA72 /* Plane.swift */,
 			);
 			path = Node;
+			sourceTree = "<group>";
+		};
+		379765FB1FC57E71001ABA72 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				379765FC1FC57E71001ABA72 /* picture-frame-mask.png */,
+				379765FD1FC57E71001ABA72 /* picture-frame.png */,
+				379765FE1FC57E71001ABA72 /* picture.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +184,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				373E1D2A1FC42580003F486F /* LaunchScreen.storyboard in Resources */,
+				379766001FC57E71001ABA72 /* picture-frame.png in Resources */,
+				379766011FC57E71001ABA72 /* picture.png in Resources */,
 				373E1D271FC42580003F486F /* Assets.xcassets in Resources */,
+				379765FF1FC57E71001ABA72 /* picture-frame-mask.png in Resources */,
 				373E1D251FC42580003F486F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +208,7 @@
 				379765F01FC51474001ABA72 /* Scene.swift in Sources */,
 				379765F61FC52F56001ABA72 /* Types.swift in Sources */,
 				379765EE1FC50F5C001ABA72 /* Plane.swift in Sources */,
+				377DC9BC1FC6A287006A5B77 /* Texturable.swift in Sources */,
 				373E1D201FC42580003F486F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

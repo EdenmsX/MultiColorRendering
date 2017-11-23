@@ -16,11 +16,13 @@ struct Constants {
 struct VertexIn {
     float4 position [[attribute(0)]];
     float4 color [[attribute(1)]];
+    float2 textureCoordinates [[attribute(2)]];
 };
 
 struct VertexOut {
     float4 position [[position]];
     float4 color;
+    float2 textureCoordinates;
 };
 
 
@@ -31,6 +33,9 @@ vertex VertexOut vertex_shader(const VertexIn vertexIn [[stage_in]]) {
     VertexOut vertexOut;
     vertexOut.position = vertexIn.position;
     vertexOut.color = vertexIn.color;
+    
+    //纹理的处理 - 出入相同
+    vertexOut.textureCoordinates = vertexIn.textureCoordinates;
     
     return vertexOut;
     
@@ -55,6 +60,35 @@ fragment half4 fragment_shader(VertexOut vertexIn[[stage_in]]){
 //    float grayColor = (vertexIn.color.r + vertexIn.color.g + vertexIn.color.b) / 3;
 //    return half4(grayColor, grayColor, grayColor, 1);
 }
+
+//用来渲染图片的片段功能
+fragment half4 texture_shader(VertexOut vertexIn[[stage_in]], texture2d<float> texture [[texture(0)]]) {
+    //默认采样器
+    constexpr sampler defaultSampler;
+    float4 color = texture.sample(defaultSampler, vertexIn.textureCoordinates);
+    
+    return half4(color.r, color.g, color.b, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

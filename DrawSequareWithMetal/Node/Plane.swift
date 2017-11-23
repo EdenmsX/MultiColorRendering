@@ -18,11 +18,12 @@ class Plane: Node {
 //        1,1,0
 //    ]
 
+    //告诉GPU把纹理的(0,1)位置对应到GPU的(-1,1)位置
     var vertices: [Vertex] = [
-        Vertex(position: float3(-1,1,0), color: float4(1,0,0,1)),
-        Vertex(position: float3(-1,-1,0), color: float4(0,1,0,1)),
-        Vertex(position: float3(1,-1,0), color: float4(0,0,1,1)),
-        Vertex(position: float3(1,1,0), color: float4(1,0,1,1)),
+        Vertex(position: float3(-1,1,0), color: float4(1,0,0,1), texture: float2(0,1)),
+        Vertex(position: float3(-1,-1,0), color: float4(0,1,0,1), texture: float2(0,0)),
+        Vertex(position: float3(1,-1,0), color: float4(0,0,1,1), texture: float2(1,0)),
+        Vertex(position: float3(1,1,0), color: float4(1,0,1,1), texture: float2(1,1)),
     ]
     
     var indces: [UInt16] = [
@@ -53,6 +54,11 @@ class Plane: Node {
         //创建顶点蓝图
         //顶点的描述符  attributes最多有32个(0-31)
         let vertexDescriptor = MTLVertexDescriptor()
+        
+        /**
+         关于偏移量的计算:
+         第一个属性的偏移量为0, 第二个属性的偏移量就是第一个属性的长度(MemoryLayout<float3>.stride), 第三个属性的偏移量就是前两个属性的长度相加(MemoryLayout<float3>.stride + MemoryLayout<float4>.stride), 后面如果再有属性就依次类推
+         */
         //位置
         vertexDescriptor.attributes[0].format = .float3
         vertexDescriptor.attributes[0].offset = 0
@@ -61,6 +67,10 @@ class Plane: Node {
         vertexDescriptor.attributes[1].format = .float4
         vertexDescriptor.attributes[1].offset = MemoryLayout<float3>.stride
         vertexDescriptor.attributes[1].bufferIndex = 0
+        //纹理
+        vertexDescriptor.attributes[2].format = .float2
+        vertexDescriptor.attributes[2].offset = MemoryLayout<float3>.stride + MemoryLayout<float4>.stride
+        vertexDescriptor.attributes[2].bufferIndex = 0
         
         //整合前面的命令
         vertexDescriptor.layouts[0].stride = MemoryLayout<Vertex>.stride
@@ -69,6 +79,9 @@ class Plane: Node {
         
         return vertexDescriptor
     }()
+    
+    //Textureable
+    var texture: MTLTexture?
     
     
     //处理顶点
@@ -86,6 +99,21 @@ class Plane: Node {
         pipelineState = buildPipelineState(device: device)
     }
     
+    //用来渲染顶点图片的初始化方法
+    init(device: MTLDevice, imageName: String) {
+        super.init()
+        
+//        self.texture = setTexture(device: device, imageName: imageName)
+        
+        if let texture = setTexture(device: device, imageName: imageName) {
+            self.texture = texture
+            fragmentFunctionName = "texture_shader"
+        }
+        
+        buildBuffer(device: device)
+        pipelineState = buildPipelineState(device: device)
+    }
+    
     override func render(commandEncoder: MTLRenderCommandEncoder, detailTime: Float) {
         super.render(commandEncoder: commandEncoder, detailTime: detailTime)
         
@@ -98,13 +126,15 @@ class Plane: Node {
         //设置管道状态
         commandEncoder.setRenderPipelineState(pipelineState)
         
+        commandEncoder.setFragmentTexture(texture, index: 0)
+        
         commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         commandEncoder.setVertexBytes(&constant, length: MemoryLayout<Constants>.stride, index: 1)
         commandEncoder.drawIndexedPrimitives(type: .triangle, indexCount: indces.count, indexType: .uint16, indexBuffer: indexBuffer, indexBufferOffset: 0)
     }
 }
 
-extension Plane: Renderable {
+extension Plane: Renderable,Texturable  {
     
 }
 
