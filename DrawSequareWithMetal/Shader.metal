@@ -18,6 +18,7 @@ struct Constants {
 
 
 
+
 struct VertexIn {
     float4 position [[attribute(0)]];
     float4 color [[attribute(1)]];
